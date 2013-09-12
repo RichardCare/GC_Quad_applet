@@ -66,24 +66,6 @@ public class quadapplet extends Applet implements mbedRPC, ActionListener {
     int LNBSwitchError_i = 0;
     int UHFSwitchError_i = 0;
 
-    // int SynthType_i=0;
-    // int AttType_i=0;
-    // int SerialAlarm_i=0;
-
-    // int SynthFrequency;
-    // int FreqUpdateIcon=0; // displayed if the frequency has been changed
-    // int F_INC=25; // increment value in MHz
-    // int SYNTH_FREQ_MIN;
-    // int SYNTH_FREQ_MAX;
-
-    // int Attenuation;
-    // int AttUpdateIcon=0; // displayed if the attenuator has been changed
-    // int A_INC=1; // increment value in bits
-    // int A_INCx=4; // increment value in bits
-    // int A_INCxx=40; // increment value in bits
-    // int ATT_MIN=0;
-    // int ATT_MAX;
-
     int CtrlStatusData = 0;
     int CommsOpenFlag = 0;
     int comms_active = 0;
@@ -110,7 +92,7 @@ public class quadapplet extends Applet implements mbedRPC, ActionListener {
 
         mbed = new HTTPRPC(this);
 
-        LEDStatus1 = new RPCVariable<Character>(mbed, "RemoteLEDStatus1"); // wont work with bool
+        LEDStatus1 = new RPCVariable<Character>(mbed, "RemoteLEDStatus1"); // won't work with bool
         LEDStatus0 = new RPCVariable<Character>(mbed, "RemoteLEDStatus0");
         LEDStatus2 = new RPCVariable<Character>(mbed, "RemoteLEDStatus2");
         CtrlAction = new RPCVariable<Integer>(mbed, "RemoteCtrlAction");
@@ -163,9 +145,6 @@ public class quadapplet extends Applet implements mbedRPC, ActionListener {
 
             get_data();
 
-            // get_data();
-            // repaint();
-
             CtrlAction.write(0x01); // 01=Set Remote Comms Open/Active
 
         } else {
@@ -177,12 +156,6 @@ public class quadapplet extends Applet implements mbedRPC, ActionListener {
     // **************************************************************************
     // * functions for timer and memory control
     // *
-    public void start() {
-        // if(comms_active==1){
-        // refresh_timer.start();
-        // }
-    }
-
     public void stop() {
 
         CtrlAction.write(0x02); // 01=Set Remote Comms off
@@ -245,8 +218,6 @@ public class quadapplet extends Applet implements mbedRPC, ActionListener {
                 UHFRecalCounter = UHFRecalCounter - 1;
             }
 
-            // get_data();
-
             repaint();
         }
     };
@@ -266,21 +237,8 @@ public class quadapplet extends Applet implements mbedRPC, ActionListener {
             g.setFont(smallFont);
             g.setColor(Color.black);
 
-            // g.drawString("PSU1 Status",100,342);
             g.drawString("PSU1", 74, 393);
             g.drawString("PSU2", 160, 393);
-            // g.drawString(String.valueOf(LEDStatus0_i),270,100);
-            // g.drawString(String.valueOf(LEDStatus1_i),270,120);
-            // g.drawString(String.valueOf(LNBPosition_i),270,100);
-            // g.drawString(String.valueOf(UHFPosition_i),270,120);
-            // g.drawString(String.valueOf(LNBAutoManual_i),270,140);
-            // g.drawString(String.valueOf(UHFAutoManual_i),270,160);
-            // g.drawString(String.valueOf(PSU1Alarm_i),270,180);
-            // g.drawString(String.valueOf(PSU2Alarm_i),270,200);
-            // g.drawString(String.valueOf(LNB1Alarm_i),270,220);
-            // g.drawString(String.valueOf(LNB2Alarm_i),270,240);
-            // g.drawString(String.valueOf(UHF1Alarm_i),270,260);
-            // g.drawString(String.valueOf(UHF2Alarm_i),270,280);
 
             // Draw Local/Remote LED and fill if active
             if (LocalActiveLED_i == 0) {
@@ -412,7 +370,6 @@ public class quadapplet extends Applet implements mbedRPC, ActionListener {
                 g.setColor(Color.black);
                 g.drawString("M", LED1_x + 14, LED6_y + 17);
             }
-            // g.fillRoundRect(LED1_x, LED6_y, LED_dx, LED2_dy, LED_r, LED_r);
             // Draw UHF Recal and fill if alive
             g.setColor(Color.white);
             if (LocalActiveLED_i == 0) {
